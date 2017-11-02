@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Простой статический класс обертка для работы с БД
+ */ 
 class Database {
     
     const DB_HOST = "localhost";
@@ -7,6 +10,9 @@ class Database {
     const DB_PASS = "";
     const DB_NAME = "task";
     
+    /**
+     * Сохранить файл в базу
+     */ 
     public static function saveToDB($collection) {
         $conn = new PDO("mysql:host=" . self::DB_HOST .";dbname=" . self::DB_NAME, self::DB_USER, self::DB_PASS);
         
@@ -20,6 +26,9 @@ class Database {
         }
     }
     
+    /**
+     * Получить из базы
+     */ 
     public static function getFromDB() {
         $conn = new PDO("mysql:host=" . self::DB_HOST .";dbname=" . self::DB_NAME, self::DB_USER, self::DB_PASS);
         
@@ -28,4 +37,20 @@ class Database {
         return $sth->fetchAll();
     }
     
+    /**
+     * Проверяем логин пароль пользователя
+     */ 
+    public static function checkUser($name, $password) {
+        $conn = new PDO("mysql:host=" . self::DB_HOST .";dbname=" . self::DB_NAME, self::DB_USER, self::DB_PASS);
+        
+        $salt = 'secret';
+        $password = md5($salt . $password . $salt);
+        $sth = $conn->prepare("SELECT id FROM users WHERE name = ? AND password = ?");
+        
+        
+        $sth->bindParam(1, $name);
+        $sth->bindParam(2, $password);
+        $sth->execute();
+        return $sth->fetch() !== false;
+    }
 }

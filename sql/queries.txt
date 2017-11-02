@@ -4,3 +4,11 @@ CREATE TABLE `data` (
   `dt` datetime NOT NULL
 );
 
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+);
+
+INSERT INTO `users` (`name`, `password`)
+VALUES ('admin', 'cfef03a5d020eae0f3a24bba96af4a54');

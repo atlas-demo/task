@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Парсер файла
+ */ 
 class Parser {
     
     public static function parseFile($fileName) {
