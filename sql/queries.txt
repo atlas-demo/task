@@ -1,0 +1,6 @@
+CREATE TABLE `data` (
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `json_obj` text COLLATE 'utf8_bin' NOT NULL,
+  `dt` datetime NOT NULL
+);
+
